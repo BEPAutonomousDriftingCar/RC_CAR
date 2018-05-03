@@ -25,7 +25,7 @@ def listener():
     pub = rospy.Publisher('test_cmd_vel', Twist, queue_size=10)
     rate = rospy.Rate(10)
     while not rospy.is_shutdown(): 		
-	pub.publish(data)                            
+	pub.publish(data.data)                            
         rate.sleep() 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
