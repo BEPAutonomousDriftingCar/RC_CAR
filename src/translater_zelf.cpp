@@ -5,8 +5,6 @@
 #include "geometry_msgs/QuaternionStamped.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "nav_msgs/Odometry.h"
-#include "donutdevice/Steer.h"
-#include "donutdevice/IntWheels.h"
 #include "donutdevice/Donut.h"
 #include <sstream>
 
