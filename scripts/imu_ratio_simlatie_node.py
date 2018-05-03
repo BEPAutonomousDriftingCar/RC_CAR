@@ -1,6 +1,5 @@
 #!/usr/bin/env python            
 # license removed for brevity
-#git pulll test
 import rospy          #importeer de rospy library
 import math
 from std_msgs.msg import String #importeer de string message om te gebruiken voor publishing
