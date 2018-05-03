@@ -34,24 +34,9 @@ class Translater
   private:
   std::string base_footprint = "DonutDevice/base_link";
 
-  const double pi = 0.26179938779;
+    
 
-  float cov_x =  999;
-  float cov_y =  999;
-  float cov_z = 999;
-
-  double inttoangle(int intangle){
-    double angle;
-    angle = (intangle-511)*(0.24719101123);
-    return angle;
-  }
-  int inttoload(int intload){
-    if(intload >= 1023){
-      intload = intload - 1023;
-    }
-    return intload;
-  }
-  ros::NodeHandle n;
+    ros::NodeHandle n;
   ros::Publisher imu_pub;
   ros::Publisher mag_pub;
   ros::Publisher wheels;
