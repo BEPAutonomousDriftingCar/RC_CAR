@@ -21,12 +21,12 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node('controller', anonymous=True)
-	rospy.Subscriber('fake_imu_ratio', Twist, callback)
-	pub = rospy.Publisher('test_cmd_vel', Twist, queue_size=10)
-	rate = rospy.Rate(10)
-	while not rospy.is_shutdown(): 		
-		rospy.loginfo(hello_str) 
-		pub.publish(data)                            
+    rospy.Subscriber('fake_imu_ratio', Twist, callback)
+    pub = rospy.Publisher('test_cmd_vel', Twist, queue_size=10)
+    rate = rospy.Rate(10)
+    while not rospy.is_shutdown(): 		
+	rospy.loginfo(hello_str) 
+	pub.publish(data)                            
         rate.sleep() 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
