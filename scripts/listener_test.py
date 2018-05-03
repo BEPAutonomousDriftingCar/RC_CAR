@@ -4,7 +4,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 
 def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+    rospy.loginfo(data.data)
     
 def listener():
 
