@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String
-from geometry_msgs.msg import Twist
 
 def callback(data):
     rospy.loginfo(data.data)
@@ -15,7 +14,7 @@ def listener():
     # run simultaneously.
     rospy.init_node('listener', anonymous=True)
 
-    rospy.Subscriber("fake_imu_ratio", Twist, callback)
+    rospy.Subscriber("fake_imu_ratio", String, callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
