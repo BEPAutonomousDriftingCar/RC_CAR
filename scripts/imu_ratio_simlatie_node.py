@@ -1,4 +1,4 @@
-#!/usr/bin/env python               # zorgt ervoor dat de scripts word geexecute als een python script
+#!/usr/bin/env python            
 # license removed for brevity
 import rospy          #importeer de rospy library
 import math
