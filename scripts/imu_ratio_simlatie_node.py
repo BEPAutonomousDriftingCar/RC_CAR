@@ -5,7 +5,9 @@ import math
 from std_msgs.msg import String #importeer de string message om te gebruiken voor publishing
 from geometry_msgs.msg import Twist
 
-
+msg = """
+Im running
+"""
 def imu_ratio():          
     pub = rospy.Publisher('fake_imu_ratio', Twist, queue_size=10)   
     rospy.init_node('imu_ratio_node', anonymous=True)      
