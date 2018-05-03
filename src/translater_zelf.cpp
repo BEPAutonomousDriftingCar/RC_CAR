@@ -15,7 +15,7 @@ class Translater
   public:
   Translater()
   {
-  ROS_INFO("Starting translater node");
+  ROS_INFO("Starting translater node"); //Message to terminal
   imu_pub = n.advertise<sensor_msgs::Imu>("imu/data_raw", 10);
   mag_pub = n.advertise<sensor_msgs::MagneticField>("imu/mag", 10);
   wheels = n.advertise<geometry_msgs::QuaternionStamped>("wheels", 10);
@@ -25,26 +25,7 @@ class Translater
   donutsub = n.subscribe("donut", 1, &Translater::donutCallback, this);
   mocapsub = n.subscribe("ground_pose", 1, &Translater::mocapCallback, this);
   }
-  void mocapCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
-  {
-    odom_msg.header.seq = msg->header.seq;
-    odom_msg.header.stamp = msg->header.stamp;                   // time of gps measurement
-    odom_msg.header.frame_id = base_footprint;          // the tracked robot frame
-    odom_msg.pose.pose.position.x = msg->pose.position.x;             // x measurement GPS.
-    odom_msg.pose.pose.position.y = msg->pose.position.y;              // y measurement GPS.
-    odom_msg.pose.pose.position.z = msg->pose.position.z;              // z measurement GPS.
-    odom_msg.pose.pose.orientation.x = msg->pose.orientation.x;             // identity quaternion
-    odom_msg.pose.pose.orientation.y = msg->pose.orientation.y;               // identity quaternion
-    odom_msg.pose.pose.orientation.z = msg->pose.orientation.z;               // identity quaternion
-    odom_msg.pose.pose.orientation.w = msg->pose.orientation.w;               // identity quaternion
-    odom_msg.pose.covariance = {cov_x, 0, 0, 0, 0, 0,  // covariance on gps_x
-                                0, cov_y, 0, 0, 0, 0,  // covariance on gps_y
-                                0, 0, cov_z, 0, 0, 0,  // covariance on gps_z
-                                0, 0, 0, cov_x, 0, 0,  // large covariance on rot x
-                                0, 0, 0, 0, cov_y, 0,  // large covariance on rot y
-                                0, 0, 0, 0, 0, cov_z};  // large covariance on rot z
-    vo.publish(odom_msg);
-  }
+  
   void donutCallback(const donutdevice::Donut::ConstPtr& msg)
   {
 
