@@ -29,30 +29,10 @@ class Translater
   void donutCallback(const donutdevice::Donut::ConstPtr& msg)
   {
 
-    s_msg.header.seq = msg->dynamixel.header.seq;
-    s_msg.header.stamp = msg->dynamixel.header.stamp;
-    s_msg.angle = inttoangle(msg->dynamixel.angle);
-    s_msg.load = inttoload(msg->dynamixel.load);
-
-
-    w_msg.header.seq = msg->wheels.header.seq;
-    w_msg.header.stamp = msg->wheels.header.stamp;
-    w_msg.quaternion.x = msg->wheels.fl*pi;
-    w_msg.quaternion.y = msg->wheels.fr*pi;
-    w_msg.quaternion.z = msg->wheels.rl*pi;
-    w_msg.quaternion.w = msg->wheels.rr*pi;
-
-
-    imu_msg.header.seq = msg->mpu.header.seq;
-    imu_msg.header.stamp = msg->mpu.header.stamp;
-
     imu_msg.linear_acceleration.x = msg->mpu.linear_acceleration.x;
     imu_msg.linear_acceleration.y = msg->mpu.linear_acceleration.y;
     imu_msg.linear_acceleration.z = msg->mpu.linear_acceleration.z;
-    imu_msg.angular_velocity.x = msg->mpu.angular_velocity.x;
-    imu_msg.angular_velocity.y = msg->mpu.angular_velocity.y;
-    imu_msg.angular_velocity.z = msg->mpu.angular_velocity.z;
-
+    
     mag_msg.header.seq = msg->mpu.header.seq;
     mag_msg.header.stamp = msg->mpu.header.stamp;
 
