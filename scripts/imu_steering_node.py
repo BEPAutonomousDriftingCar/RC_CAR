@@ -4,7 +4,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 
 mgs = """
-I like running
+IM RUNNING
 
 
 
