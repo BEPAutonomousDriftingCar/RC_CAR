@@ -32,18 +32,9 @@ class Translater
     imu_msg.linear_acceleration.x = msg->mpu.linear_acceleration.x;
     imu_msg.linear_acceleration.y = msg->mpu.linear_acceleration.y;
     imu_msg.linear_acceleration.z = msg->mpu.linear_acceleration.z;
-    
-    mag_msg.header.seq = msg->mpu.header.seq;
-    mag_msg.header.stamp = msg->mpu.header.stamp;
-
-    mag_msg.magnetic_field.x =  msg->mpu.magnetic_field.x;
-    mag_msg.magnetic_field.y = msg->mpu.magnetic_field.y;
-    mag_msg.magnetic_field.z = msg->mpu.magnetic_field.z;
-
-    mag_pub.publish(mag_msg);
+        
     imu_pub.publish(imu_msg);
-    wheels.publish(w_msg);
-    steer.publish(s_msg);
+    
   }
   private:
   std::string base_footprint = "DonutDevice/base_link";
