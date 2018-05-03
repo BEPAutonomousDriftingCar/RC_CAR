@@ -18,12 +18,12 @@ def imu_ratio():
           rate = rospy.Rate(10)
           while ratio > 0.9:
             		ratio = ratio - 0.01
-			pub.publish(ratio)                            
+			pub.publish('%s' % ratio)                            
             		rate.sleep() 
           rate = rospy.Rate(10)
           while ratio < 1.1:
             		ratio = ratio + 0.01
-			pub.publish(ratio)                            
+			pub.publish('%s' % ratio)                            
             		rate.sleep() 
         
 if __name__ == '__main__':
