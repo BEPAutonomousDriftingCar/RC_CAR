@@ -17,13 +17,8 @@ class Translater
   {
   ROS_INFO("Starting translater node"); //Message to terminal
   imu_pub = n.advertise<sensor_msgs::Imu>("imu/data_raw", 10);
-  mag_pub = n.advertise<sensor_msgs::MagneticField>("imu/mag", 10);
-  wheels = n.advertise<geometry_msgs::QuaternionStamped>("wheels", 10);
-  steer = n.advertise<donutdevice::Steer>("steer", 10);
-  vo = n.advertise<nav_msgs::Odometry>("vo", 10);
-
+ 
   donutsub = n.subscribe("donut", 1, &Translater::donutCallback, this);
-  mocapsub = n.subscribe("ground_pose", 1, &Translater::mocapCallback, this);
   }
   
   void donutCallback(const donutdevice::Donut::ConstPtr& msg)
