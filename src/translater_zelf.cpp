@@ -38,20 +38,12 @@ class Translater
 
     ros::NodeHandle n;
   ros::Publisher imu_pub;
-  ros::Publisher mag_pub;
-  ros::Publisher wheels;
-  ros::Publisher steer;
-  ros::Publisher vo;
 
   ros::Subscriber donutsub;
-  ros::Subscriber mocapsub;
-
-  nav_msgs::Odometry odom_msg;
+  
+  
   sensor_msgs::Imu imu_msg;
-  sensor_msgs::MagneticField mag_msg;
-  geometry_msgs::QuaternionStamped w_msg;
-  donutdevice::Steer s_msg;
-  donutdevice::Donut donut_msg;
+  
 
 
 };
