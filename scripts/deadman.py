@@ -18,7 +18,7 @@ def talker(data):
 def listener():
     global twist
     rospy.init_node('deadman', anonymous=True)
-    rospy.Subscriber('/cmd_vel', Twist, talker).
+    rospy.Subscriber('/cmd_vel', Twist, talker)
     # Initial movement.
     twist = Twist()
     twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
