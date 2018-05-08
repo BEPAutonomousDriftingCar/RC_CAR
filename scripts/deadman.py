@@ -5,28 +5,20 @@ import math
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 
-goal_pos = 0;
-pub = rospy.Publisher('/cmd_vel', Twist)
+pub = rospy.Publisher('/cmd_vel_sim', Twist)
 
 def talker(data):
-    global goal_pos
-    rospy.loginfo(rospy.get_name() + ': Current motor angle {0}'.format(data.current_pos))
-
+    global twist
+    twist.linear.x = data.linear.x
+    twist.angular.z = data.angular.z
     # If the motor has reached its limit, publish a new command.
-    if fabs(goal_pos-data.current_pos) < 0.01:
-        if goal_pos == 0:
-            goal_pos = 3.141592
-        else:
-            goal_pos = 0
-
-        str = "Time: {0} Moving motor to {1}" .format(rospy.get_time(), goal_pos)
-        rospy.loginfo(str)
-        pub.publish(Float64(goal_pos))
+    pub.publish(twist)
 
 
 def listener():
-    rospy.init_node('dxl_control', anonymous=True)
-    rospy.Subscriber('/cmd_vel_sim', Twist, talker).
+    global twist
+    rospy.init_node('deadman', anonymous=True)
+    rospy.Subscriber('/cmd_vel', Twist, talker).
     # Initial movement.
     twist = Twist()
     twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
