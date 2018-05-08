@@ -5,7 +5,7 @@ import math
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 
-pub = rospy.Publisher('/cmd_vel_sim', Twist)
+pub = rospy.Publisher('/cmd_vel_sim', Twist, queue_size=10)
 
 def talker(data):
     global twist
