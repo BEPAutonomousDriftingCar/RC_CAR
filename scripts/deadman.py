@@ -27,6 +27,13 @@ def getKey():
 	termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
 	return key
 
+def safety():
+	global twist
+    	twist.linear.x = 0
+    	twist.angular.z = 0
+    	# If the motor has reached its limit, publish a new command.
+    	pub.publish(twist)
+
 def listener():
     global twist
     rospy.init_node('deadman', anonymous=True)
@@ -43,7 +50,9 @@ if __name__ == '__main__':
     try:
         key = getKey()
         if key == "k":
-            listener()
+            	listener()
+	else:
+		safety()
     except rospy.ROSInterruptException:
         pass
     finally:
