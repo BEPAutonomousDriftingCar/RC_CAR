@@ -13,6 +13,7 @@ Reading from the keyboard  and Publishing to Twist!
 
 def talker(data):
     global twist
+    twist = Twist()
     twist.linear.x = data.linear.x
     twist.angular.z = data.angular.z
     # If the motor has reached its limit, publish a new command.
@@ -28,6 +29,7 @@ def getKey():
 
 def safety():
 	global twist
+	twist = Twist()
     	twist.linear.x = 0
     	twist.angular.z = 0
     	# If the motor has reached its limit, publish a new command.
