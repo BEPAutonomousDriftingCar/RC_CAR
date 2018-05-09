@@ -57,10 +57,7 @@ speedBindings={					#je wil dus hier ervoor zorgen dat +iets gaat als je op deze
 		'e':(0,.1),
 		'c':(0,-.1),
 	      }
-#sinBindings={
-#		'a':(sin(iCount)),
-#		's':(cos(iCount)),
-	     # }
+
 def getKey():
 	tty.setraw(sys.stdin.fileno())
 	select.select([sys.stdin], [], [], 0)
@@ -104,16 +101,6 @@ if __name__=="__main__":
 				if (status == 14):
 					print msg
 				status = (status + 1) % 15
-			elif key in sinBindings.keys():
-				
-				for iCount in range(0,1000,1):
-					turn = math.sin(iCount/100)
-					twist = Twist()
-					twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed;
-					twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = th*turn
-					pub.publish(twist)
-
-					
 			else:
 				x = 0
 				y = 0
