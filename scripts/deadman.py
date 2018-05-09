@@ -53,9 +53,9 @@ if __name__ == '__main__':
 		print msg
         	key = getKey()
         	if key == "k":
-            		listener()
+            		safety()
 		else:
-			safety()
+			listener()
    	except rospy.ROSInterruptException:
         	pass
 
