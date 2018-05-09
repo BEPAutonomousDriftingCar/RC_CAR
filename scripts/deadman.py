@@ -48,6 +48,7 @@ def listener():
 
 if __name__ == '__main__':
     try:
+	print msg
         key = getKey()
         if key == "k":
             	listener()
