@@ -18,6 +18,7 @@ def talker(data):
     twist.linear.x = data.linear.x
     twist.angular.z = data.angular.z
     # If the motor has reached its limit, publish a new command.
+    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)	
     pub.publish(twist)
 
 def getKey():
@@ -56,11 +57,5 @@ if __name__ == '__main__':
 		safety()
     except rospy.ROSInterruptException:
         pass
-    finally:
-		twist = Twist()
-		twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0
-		twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0
-		pub.publish(twist)
 
-    		termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
 
