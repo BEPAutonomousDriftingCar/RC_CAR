@@ -12,13 +12,16 @@ Reading from the keyboard  and Publishing to Twist!
 """
 
 def talker(data):
-    global twist
-    twist = Twist()
-    twist.linear.x = data.linear.x
-    twist.angular.z = data.angular.z
-    # If the motor has reached its limit, publish a new command.
-    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)	
-    pub.publish(twist)
+   	global twist
+    	twist = Twist()
+    	key = getKey()
+	if key == 'k':
+		twist.linear.x = 0
+		twist.angular.z = 0
+	else:
+		twist.linear.x = data.linear.x
+    		twist.angular.z = data.angular.z
+    	pub.publish(twist)
 
 def getKey():
 	tty.setraw(sys.stdin.fileno())
@@ -50,14 +53,9 @@ if __name__ == '__main__':
     	settings = termios.tcgetattr(sys.stdin)
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
 	rospy.init_node('deadman', anonymous=True)
-	
 	try:
 		print msg
-        	key = getKey()
-        	if key == "k":
-            		safety()
-		else:
-			listener()
+        	listener()
    	except rospy.ROSInterruptException:
         	pass
 
