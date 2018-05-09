@@ -11,8 +11,6 @@ msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
 
-pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-
 def talker(data):
     global twist
     twist.linear.x = data.linear.x
@@ -37,7 +35,6 @@ def safety():
 
 def listener():
     global twist
-    rospy.init_node('deadman', anonymous=True)
     rospy.Subscriber('/cmd_vel_sim', Twist, talker)
     # Initial movement.
     twist = Twist()
@@ -48,14 +45,18 @@ def listener():
 
 
 if __name__ == '__main__':
-    try:
-	print msg
-        key = getKey()
-        if key == "k":
-            	listener()
-	else:
-		safety()
-    except rospy.ROSInterruptException:
-        pass
+    	settings = termios.tcgetattr(sys.stdin)
+	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+	rospy.init_node('deadman', anonymous=True)
+	
+	try:
+		print msg
+        	key = getKey()
+        	if key == "k":
+            		listener()
+		else:
+			safety()
+   	except rospy.ROSInterruptException:
+        	pass
 
 
