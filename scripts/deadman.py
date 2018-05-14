@@ -18,8 +18,7 @@ def talker(data):
 	if key == 'k':
 		twist.linear.x = 0
 		twist.angular.z = 0
-	else:
-	#elif key == 'j':
+	elif key == 'j':
 		twist.linear.x = data.linear.x
     		twist.angular.z = data.angular.z
     	pub.publish(twist)
