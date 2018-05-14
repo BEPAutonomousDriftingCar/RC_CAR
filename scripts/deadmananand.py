@@ -16,10 +16,10 @@ def talker(data):
     	twist = Twist()
     	key = getKey()
 	while key != 'k':
-    twist.linear.x = data.linear.x
-    twist.angular.z = data.angular.z
-    pub.publish(twist)
-	twist.linear.x = 0
+		twist.linear.x = data.linear.x
+		twist.angular.z = data.angular.z
+		pub.publish(twist)
+        twist.linear.x = 0
 	twist.angular.z = 0
 	pub.publish(twist)
 
