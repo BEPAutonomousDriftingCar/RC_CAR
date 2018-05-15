@@ -198,6 +198,3 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-add_executable(translater_zelf src/translater_zelf.cpp)
-target_link_libraries(translater_zelf ${catkin_LIBRARIES})
