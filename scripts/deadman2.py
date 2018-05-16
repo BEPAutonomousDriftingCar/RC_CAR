@@ -39,7 +39,7 @@ def listener():
     	pub.publish(twist)
     	rospy.spin()
 
-## ---- MAIN CODE ------ runt maar één keer!
+# ---- MAIN CODE ------ runt maar een keer!
 if __name__ == '__main__':
     	settings = termios.tcgetattr(sys.stdin)
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
