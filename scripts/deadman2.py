@@ -10,7 +10,7 @@ import sys, select, termios, tty
 msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
-key = j
+key = 1
 
 def talker(data):
    	global twist
