@@ -29,15 +29,17 @@ def listener():
     	global twist
 	key = getKey()
 	while key != 'k':
-		rospy.Subscriber('/cmd_vel_sim', Twist, talker)
-   	 # Initial movement.
+		rospy.Subscriber('/cmd_vel_sim', Twist, talker) #Dit is een loop! zolang er op het topic nieuwe shit binnenkomt, blijft listener publishen
+   		key = getKey()
+		
+	# Initial movement.
     	twist = Twist()
     	twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
     	twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
     	pub.publish(twist)
     	rospy.spin()
 
-
+## ---- MAIN CODE ------ runt maar één keer!
 if __name__ == '__main__':
     	settings = termios.tcgetattr(sys.stdin)
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
@@ -47,5 +49,5 @@ if __name__ == '__main__':
         	listener()
    	except rospy.ROSInterruptException:
         	pass
-
+## END
 
