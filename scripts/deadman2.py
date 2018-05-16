@@ -2,15 +2,9 @@
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
 import math
-
+import sys, select, termios, tty
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
-
-import sys, select, termios, tty
-msg = """
-Reading from the keyboard  and Publishing to Twist!
-"""
-key = 1
 
 def talker(data):
    	global twist
@@ -22,7 +16,6 @@ def talker(data):
 	if key == 'k':
 		twist.linear.x = 0
 		twist.angular.z = 0
-    	
 	pub.publish(twist)
 
 def getKey():
@@ -52,7 +45,10 @@ def listener():
 
 
 if __name__ == '__main__':
-    	settings = termios.tcgetattr(sys.stdin)
+    	msg = """
+	Reading from the keyboard  and Publishing to Twist!
+	"""
+	settings = termios.tcgetattr(sys.stdin)
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
 	rospy.init_node('deadman', anonymous=True) 	# initialize node, maar wordt verder nergens aangeroepen.
 							# naam van de node boeit dus niet, omdat we altijd deadman1.py aanroepen?
