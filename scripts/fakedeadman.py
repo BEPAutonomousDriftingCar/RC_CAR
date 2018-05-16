@@ -14,7 +14,7 @@ Reading from the keyboard  and Publishing to Twist!
 def talker(data):
    	global twist
     	twist = Twist()
-	    twist.linear.x = data.linear.x
+	twist.linear.x = data.linear.x
     	twist.angular.z = data.angular.z
     	pub.publish(twist)
 	
@@ -50,11 +50,7 @@ if __name__ == '__main__':
 	rospy.init_node('deadman', anonymous=True)
 	try:
 		print msg
-		key = getKey()
-		while key == 'k':
-        		listener()
-		twist.linear.x = 0
-    		twist.angular.z = 0
-    		pub.publish(twist)
+        	listener()
+		
    	except rospy.ROSInterruptException:
         	pass
