@@ -8,7 +8,7 @@ from std_msgs.msg import String
 
 import sys, select, termios, tty
 msg = """
-Reading from the keyboard  and Publishing to Twist!
+Reading from the keyboard and Publishing to Twist!
 """
 
 def talker(data):
@@ -24,14 +24,6 @@ def getKey():
 	key = sys.stdin.read(1)
 	termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
 	return key
-
-def safety():
-	global twist
-	twist = Twist()
-    	twist.linear.x = 0
-    	twist.angular.z = 0
-    	# If the motor has reached its limit, publish a new command.
-    	pub.publish(twist)
 
 def listener():
     	global twist
