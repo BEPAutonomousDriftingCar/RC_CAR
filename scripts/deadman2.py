@@ -10,19 +10,7 @@ import sys, select, termios, tty
 msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
-'''
-def talker(data):
-   	global twist
-    	twist = Twist()
-    	key = getKey()
-	if key == 'k':
-		twist.linear.x = 0
-		twist.angular.z = 0
-	elif key == 'j':
-		twist.linear.x = data.linear.x
-    		twist.angular.z = data.angular.z
-    	pub.publish(twist)
-'''
+
 def talker(data):
    	global twist
     	twist = Twist()
