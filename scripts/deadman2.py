@@ -34,16 +34,16 @@ def safety():
     	pub.publish(twist)
 
 def listener():
-    global twist
+    	global twist
 	key = getKey()
 	while key != 'k':
 		rospy.Subscriber('/cmd_vel_sim', Twist, talker)
-    # Initial movement.
-    twist = Twist()
-    twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
-    twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
-    pub.publish(twist)
-    rospy.spin()
+   	 # Initial movement.
+    	twist = Twist()
+    	twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
+    	twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
+    	pub.publish(twist)
+    	rospy.spin()
 
 
 if __name__ == '__main__':
