@@ -8,21 +8,23 @@ from std_msgs.msg import String
 
 import sys, select, termios, tty
 msg = """
-Reading from the keyboard and Publishing to Twist!
+Reading from the keyboard  and Publishing to Twist!
 """
+key = j
 
 def talker(data):
    	global twist
     	twist = Twist()
-	key = getKey()
-	if key != 'k':
-		twist.linear.x = data.linear.x
-    		twist.angular.z = data.angular.z
-	else:
-		twist.linear.x = 0
-		twist.angular.z = 0		
-    	pub.publish(twist)
+    	twist.linear.x = data.linear.x
+    	twist.angular.z = data.angular.z
 	
+	key = getKey()
+	if key == 'k':
+		twist.linear.x = 0
+		twist.angular.z = 0
+    	
+	pub.publish(twist)
+
 def getKey():
 	tty.setraw(sys.stdin.fileno())
 	select.select([sys.stdin], [], [], 0)
@@ -30,24 +32,33 @@ def getKey():
 	termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
 	return key
 
-def listener():
-    	global twist
-	rospy.Subscriber('/cmd_vel_sim', Twist, talker) #Dit is een loop! Veroorzaakt door talker
-    	twist = Twist()
-    	twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
-    	twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
+def safety():
+	global twist
+	twist = Twist()
+    	twist.linear.x = 0
+    	twist.angular.z = 0
+    	# If the motor has reached its limit, publish a new command.
     	pub.publish(twist)
-    	rospy.spin()
 
-# ---- MAIN CODE ------ runt maar een keer!
+def listener():
+    global twist
+    key = 'j'
+    rospy.Subscriber('/cmd_vel_sim', Twist, talker)
+    twist = Twist()
+    twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
+    twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
+    pub.publish(twist)
+    rospy.spin()
+
+
 if __name__ == '__main__':
     	settings = termios.tcgetattr(sys.stdin)
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
-	rospy.init_node('deadman', anonymous=True)
+	rospy.init_node('deadman', anonymous=True) 	# initialize node, maar wordt verder nergens aangeroepen.
+							# naam van de node boeit dus niet, omdat we altijd deadman1.py aanroepen?
 	try:
 		print msg
-        	listener()
+		listener()
    	except rospy.ROSInterruptException:
         	pass
-## END
-
+	
