@@ -35,7 +35,9 @@ def safety():
 
 def listener():
     global twist
-    rospy.Subscriber('/cmd_vel_sim', Twist, talker)
+	key = getKey()
+	while key != 'k':
+		rospy.Subscriber('/cmd_vel_sim', Twist, talker)
     # Initial movement.
     twist = Twist()
     twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
@@ -50,12 +52,7 @@ if __name__ == '__main__':
 	rospy.init_node('deadman', anonymous=True)
 	try:
 		print msg
-		key = getKey()
-		while key == 'k':
-        		listener()
-		twist.linear.x = 0
-    		twist.angular.z = 0
-    		pub.publish(twist)
+        	listener()
    	except rospy.ROSInterruptException:
         	pass
 
