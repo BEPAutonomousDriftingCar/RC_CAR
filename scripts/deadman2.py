@@ -14,8 +14,13 @@ Reading from the keyboard and Publishing to Twist!
 def talker(data):
    	global twist
     	twist = Twist()
-	twist.linear.x = data.linear.x
-    	twist.angular.z = data.angular.z
+	key = getKey()
+	if key != 'k':
+		twist.linear.x = data.linear.x
+    		twist.angular.z = data.angular.z
+	else:
+		twist.linear.x = 0
+		twist.angular.z = 0		
     	pub.publish(twist)
 	
 def getKey():
@@ -27,12 +32,7 @@ def getKey():
 
 def listener():
     	global twist
-	key = getKey()
-	while key != 'k':
-		rospy.Subscriber('/cmd_vel_sim', Twist, talker) #Dit is een loop! zolang er op het topic nieuwe shit binnenkomt, blijft listener publishen
-   		key = getKey()
-		
-	# Initial movement.
+	rospy.Subscriber('/cmd_vel_sim', Twist, talker) #Dit is een loop! Veroorzaakt door talker
     	twist = Twist()
     	twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
     	twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
