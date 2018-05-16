@@ -10,7 +10,7 @@ import sys, select, termios, tty
 msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
-'''
+
 def talker(data):
    	global twist
     	twist = Twist()
@@ -33,6 +33,7 @@ def talker(data):
 		twist.linear.x = 0
 		twist.angular.z = 0
     	pub.publish(twist)
+'''	
 def getKey():
 	tty.setraw(sys.stdin.fileno())
 	select.select([sys.stdin], [], [], 0)
