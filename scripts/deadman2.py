@@ -10,7 +10,7 @@ import sys, select, termios, tty
 msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
-
+'''
 def talker(data):
    	global twist
     	twist = Twist()
@@ -28,12 +28,8 @@ def talker(data):
     	twist = Twist()
 	twist.linear.x = data.linear.x
     	twist.angular.z = data.angular.z
-    	key = getKey()
-	if key == 'k':
-		twist.linear.x = 0
-		twist.angular.z = 0
     	pub.publish(twist)
-'''	
+	
 def getKey():
 	tty.setraw(sys.stdin.fileno())
 	select.select([sys.stdin], [], [], 0)
@@ -66,7 +62,12 @@ if __name__ == '__main__':
 	rospy.init_node('deadman', anonymous=True)
 	try:
 		print msg
-        	listener()
+		key = getKey()
+		while key == 'k':
+        		listener()
+		twist.linear.x = 0
+    		twist.angular.z = 0
+    		pub.publish(twist)
    	except rospy.ROSInterruptException:
         	pass
 
