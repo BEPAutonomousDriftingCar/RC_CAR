@@ -41,7 +41,9 @@ if __name__ == '__main__':
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
 	rospy.init_node('deadman', anonymous=True)
 	try:
-		print """	Reading from the keyboard  and Publishing to Twist!	"""
+		print """	
+		Reading from the keyboard  and Publishing to Twist!	
+		"""
         	listener()	
    	except rospy.ROSInterruptException:
         	pass
