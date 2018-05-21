@@ -11,17 +11,22 @@ msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
 	
-def listener():
+def listener1():
     global twist
-    rospy.Subscriber('/cmd_vel_sim', Twist, talker)
+    rospy.Subscriber('/cmd_vel_sim', Twist, talker1)
     # Initial movement.
     twist = Twist()
     twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
     twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
-    pub.publish(twist)
+    #pub.publish(twist)
     rospy.spin()
 	
-def listener():
+def talke1(data):
+    cmdvelsim.lin.x=data.linear.x
+    cmdvelsim.ang.z=data.angular.z
+    return cmdvelsim.lin.x cmdvelsim.ang.z
+	
+def listener2():
     global twist
     rospy.Subscriber('/dm_init', Twist, talker)
     # Initial movement.
@@ -31,7 +36,7 @@ def listener():
     pub.publish(twist)
     rospy.spin()
 	
-def talker(data):
+def talker():
    	global twist
     	twist = Twist()
 	twist.linear.x = data.linear.x
