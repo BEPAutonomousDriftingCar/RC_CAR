@@ -21,27 +21,34 @@ def listener1():
     #pub.publish(twist)
     rospy.spin()
 	
-def talke1(data):
+def talker1(data):
     cmdvelsim.lin.x=data.linear.x
     cmdvelsim.ang.z=data.angular.z
     return cmdvelsim.lin.x cmdvelsim.ang.z
 	
 def listener2():
     global twist
-    rospy.Subscriber('/dm_init', Twist, talker)
+    rospy.Subscriber('/dm_init', Twist, talker2)
     # Initial movement.
     twist = Twist()
     twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
     twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
-    pub.publish(twist)
+    #pub.publish(twist)
     rospy.spin()
 	
+def talker2(data):
+    dm.lin.x=data.linear.x
+    dm.ang.z=data.angular.z
+    return dm.lin.x dm.ang.z
+	
 def talker():
-   	global twist
-    	twist = Twist()
-	twist.linear.x = data.linear.x
-    	twist.angular.z = data.angular.z
-    	pub.publish(twist)
+    global twist
+    twist = Twist()
+    #twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
+    #twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
+    twist.linear.x = cmdvelsim.lin.x * dm.lin.x 
+    twist.angular.z = cmdvelsim.ang.z * dm.ang.z
+    pub.publish(twist)
 
 
 if __name__ == '__main__':
