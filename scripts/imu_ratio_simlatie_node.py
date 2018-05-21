@@ -9,7 +9,7 @@ msg = """
 Im running
 """
 def imu_ratio():          
-    pub = rospy.Publisher('fake_imu_ratio', String, queue_size=10)   
+    pub = rospy.Publisher('/cmd_vel_sim', String, queue_size=10)   
     rospy.init_node('imu_ratio_node', anonymous=True)      
     rate = rospy.Rate(10) # 10hz                       
     while not rospy.is_shutdown():                      
