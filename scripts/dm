@@ -10,7 +10,8 @@ import sys, select, termios, tty
 msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
-	
+global cmdvelsim
+global dm
 def listener1():
     global twist
     rospy.Subscriber('/cmd_vel_sim', Twist, talker1)
@@ -22,7 +23,7 @@ def listener1():
     rospy.spin()
 	
 def talker1(data):
-    global cmdvelsim
+    #global cmdvelsim
     cmdvelsim.lin.x=data.linear.x
     cmdvelsim.ang.z=data.angular.z
     return cmdvelsim.lin.x, cmdvelsim.ang.z
@@ -38,7 +39,7 @@ def listener2():
     rospy.spin()
 	
 def talker2(data):
-    global dm	
+    #global dm	
     dm.lin.x=data.linear.x
     dm.ang.z=data.angular.z
     return dm.lin.x, dm.ang.z
