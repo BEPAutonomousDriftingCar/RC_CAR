@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+import roslib; roslib.load_manifest('teleop_twist_keyboard')
+import rospy
+import math
+
+from geometry_msgs.msg import Twist
+
+import sys, select, termios, tty
+
+msg = """
+Reading from the keyboard  and Publishing to Twist!
+---------------------------
+Moving around:
+   u    i    o
+   j    k    l
+   m    ,    .
+For Holonomic mode (strafing), hold down the shift key:
+---------------------------
+   U    I    O
+   J    K    L
+   M    <    >
+t : up (+z)
+b : down (-z)
+anything else : stop
+q/z : increase/decrease max speeds by 10%
+w/x : increase/decrease only linear speed by 10%
+e/c : increase/decrease only angular speed by 10%
+CTRL-C to quit
+"""
+
+moveBindings = {
+		'j':(1),
+	       }
+
+speedBindings={					#je wil dus hier ervoor zorgen dat +iets gaat als je op deze key drukt
+		'k':(0),
+	      }
+
+def getKey():
+	tty.setraw(sys.stdin.fileno())
+	select.select([sys.stdin], [], [], 0)
+	key = sys.stdin.read(1)
+	termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+	return key
+
+if __name__=="__main__":
+    	settings = termios.tcgetattr(sys.stdin)
+	
+	pub = rospy.Publisher('cmd_vel_dm', Twist, queue_size = 1)
+	rospy.init_node('dm_init')
+	x = 1
+	
+		status = 0
+
+	try:
+		print msg
+		print vels(x)
+		while(1):
+			key = getKey()
+			if key in moveBindings.keys():
+				x = moveBindings[key][0]
+				
+			elif key in speedBindings.keys():
+				x = speedBindings[key][0] 
+			
+				print vels(speed,turn)
+				if (status == 14):
+					print msg
+				status = (status + 1) % 15
+			else:
+				x = 1
+								
+				if (key == '\x03'):
+					break
+
+			twist = Twist()
+			twist.linear.x = 1*x; twist.linear.y = 0 ; twist.linear.z = 0
+			twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 1*x
+			pub.publish(twist)
+
+	except:
+		print e
+
+	finally:
+		twist = Twist()
+		twist.linear.x = 1; twist.linear.y = 0; twist.linear.z = 0
+		twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 1
+		pub.publish(twist)
+
+    		termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
