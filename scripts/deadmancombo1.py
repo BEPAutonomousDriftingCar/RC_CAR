@@ -5,6 +5,7 @@ import math
 
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
+from std_msgs.msg import Bool
 
 import sys, select, termios, tty
 msg = """
@@ -19,7 +20,7 @@ def getKey():
 	return key
 
 def safety():
-    	global twist
+    	global bool
     	# Initial movement
 	key = getKey()
 	x = 0
@@ -27,10 +28,9 @@ def safety():
 		x = 0
 	elif key == 'j':
 		x = 1
-    	twist = Twist()
-	twist.linear.x = 1*x; twist.linear.y = 0; twist.linear.z = 0;
-    	twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
-    	pub.publish(twist)
+    	bool = Bool()
+	bool = x
+    	pub.publish(bool)
     	rospy.spin()
 
 
