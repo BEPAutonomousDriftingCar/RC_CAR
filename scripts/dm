@@ -57,7 +57,7 @@ if __name__ == '__main__':
 	rospy.init_node('deadman', anonymous=True)
 	try:
 		print msg
-        	listener()
+        	listener1()
 		
    	except rospy.ROSInterruptException:
         	pass
