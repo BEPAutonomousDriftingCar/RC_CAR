@@ -24,7 +24,7 @@ def listener1():
 def talker1(data):
     cmdvelsim.lin.x=data.linear.x
     cmdvelsim.ang.z=data.angular.z
-    return cmdvelsim.lin.x cmdvelsim.ang.z
+    return cmdvelsim.lin.x, cmdvelsim.ang.z
 	
 def listener2():
     global twist
@@ -39,7 +39,7 @@ def listener2():
 def talker2(data):
     dm.lin.x=data.linear.x
     dm.ang.z=data.angular.z
-    return dm.lin.x dm.ang.z
+    return dm.lin.x, dm.ang.z
 	
 def talker():
     global twist
