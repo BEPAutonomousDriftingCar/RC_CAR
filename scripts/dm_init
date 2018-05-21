@@ -50,7 +50,7 @@ if __name__=="__main__":
 	rospy.init_node('dm_init')
 	x = 1
 	
-		status = 0
+	status = 0
 
 	try:
 		print msg
