@@ -10,13 +10,6 @@ import sys, select, termios, tty
 msg = """
 Reading from the keyboard  and Publishing to Twist!
 """
-
-def talker(data):
-   	global twist
-    	twist = Twist()
-	twist.linear.x = data.linear.x
-    	twist.angular.z = data.angular.z
-    	pub.publish(twist)
 	
 def getKey():
 	tty.setraw(sys.stdin.fileno())
@@ -26,31 +19,28 @@ def getKey():
 	return key
 
 def safety():
-	global twist
-	twist = Twist()
-    	twist.linear.x = 0
-    	twist.angular.z = 0
-    	# If the motor has reached its limit, publish a new command.
+    	global twist
+    	# Initial movement
+	key = getKey()
+	x = 0
+	if key == 'k':
+		x = 0
+	elif key == 'j':
+		x = 1
+    	twist = Twist()
+	twist.linear.x = 1*x; twist.linear.y = 0; twist.linear.z = 0;
+    	twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
     	pub.publish(twist)
-
-def listener():
-    global twist
-    rospy.Subscriber('/cmd_vel_sim', Twist, talker)
-    # Initial movement.
-    twist = Twist()
-    twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
-    twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
-    pub.publish(twist)
-    rospy.spin()
+    	rospy.spin()
 
 
 if __name__ == '__main__':
     	settings = termios.tcgetattr(sys.stdin)
-	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
-	rospy.init_node('deadman', anonymous=True)
+	pub = rospy.Publisher('cmd_vel_safety', Twist, queue_size = 1)
+	rospy.init_node('safety_deadman', anonymous=True)
 	try:
 		print msg
-        	listener()
+        	safety()
 		
    	except rospy.ROSInterruptException:
         	pass
