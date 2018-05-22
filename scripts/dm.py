@@ -35,6 +35,9 @@ def talker1(data):
 def talker2(data):
     	global dm
 	dm = data.linear.x
+	twist = Twist()
+	twist.linear.x = dm 
+    	pub.publish(twist)
     	return dm
 	
 if __name__ == '__main__':
