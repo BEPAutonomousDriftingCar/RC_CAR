@@ -13,7 +13,8 @@ Reading from the keyboard  and Publishing to Twist!
 
 def listener1():
     global twist
-    rospy.Subscriber('/cmd_vel_sim', Twist, talker1)
+    rospy.Subscriber('/dm_init', Twist, talker2)
+	rospy.Subscriber('/cmd_vel_sim', Twist, talker1)
     # Initial movement.
     #twist = Twist()
     #twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
@@ -22,43 +23,28 @@ def listener1():
     rospy.spin()
 	
 def talker1(data):
-    x=data.linear.x
+    global dm
+	global twist
+	x=data.linear.x
     z=data.angular.z
-    return x,z
-	
-def listener2():
-    global twist
-    rospy.Subscriber('/dm_init', Twist, talker2)
-    # Initial movement.
-    #twist = Twist()
-    #twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
-    #twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
-    #pub.publish(twist)
-    rospy.spin()
-	
-def talker2(data):
-    dmx=data.linear.x
-    dmz=data.angular.z
-    return dmx, dmz
-	
-def talker():
-    global twist
     twist = Twist()
     #twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
     #twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
-    twist.linear.x = x * dmx 
-    twist.angular.z = z * dmz
+    twist.linear.x = data.linear.x * dm 
+    twist.angular.z = data.angular.z * dm
     pub.publish(twist)
-
-
+	
+def talker2(data):
+    global dm
+	dm = data.linear.x
+    return dm
+	
 if __name__ == '__main__':
-    	settings = termios.tcgetattr(sys.stdin)
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
 	rospy.init_node('deadman', anonymous=True)
 	try:
 		print msg
         	listener1()
-		listener2()
 		
    	except rospy.ROSInterruptException:
         	pass
