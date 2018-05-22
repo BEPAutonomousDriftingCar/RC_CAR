@@ -25,8 +25,6 @@ def listener1():
 def talker1(data):
     	global dm
 	global twist
-	x=data.linear.x
-    	z=data.angular.z
     	twist = Twist()
     	#twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
     	#twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;
