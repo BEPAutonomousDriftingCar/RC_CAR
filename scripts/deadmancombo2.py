@@ -23,6 +23,7 @@ def safety():
 	global bool
 	bool = Bool()
     	bool = data
+	return bool
     	# If the motor has reached its limit, publish a new command.
 
 def listener():
