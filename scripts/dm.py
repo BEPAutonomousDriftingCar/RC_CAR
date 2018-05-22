@@ -12,7 +12,8 @@ Reading from the keyboard  and Publishing to Twist!
 """
 
 def listener1():
-    	global twist
+    	global dm
+	global twist
    	rospy.Subscriber('/dm_init', Twist, talker2)
     	rospy.Subscriber('/cmd_vel_sim', Twist, talker1)
     	# Initial movement.
