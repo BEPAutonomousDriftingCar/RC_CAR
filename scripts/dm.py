@@ -37,7 +37,7 @@ def talker2(data):
     	global dm
 	dm = data.linear.x
 	twist = Twist()
-	twist.linear.x = dm 
+	twist.linear.x = 0 
     	pub.publish(twist)
     	return dm
 	
