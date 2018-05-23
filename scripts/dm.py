@@ -43,7 +43,7 @@ def talker2(data):
 	
 if __name__ == '__main__':
 	pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
-	rospy.init_node('deadman', anonymous=True)
+	rospy.init_node('dm', anonymous=True)
 	try:
 		print msg
         	listener1()
