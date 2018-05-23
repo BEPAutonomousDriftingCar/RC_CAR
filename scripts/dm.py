@@ -13,6 +13,7 @@ Reading from the keyboard  and Publishing to Twist!
 
 def listener1():
     	global dm
+	dm = 0
 	global twist
    	rospy.Subscriber('/dm_init', Twist, talker2)
     	rospy.Subscriber('/cmd_vel_sim', Twist, talker1)
