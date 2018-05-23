@@ -11,7 +11,7 @@ import rospy
 def main():
     rospy.init_node('print_info', anonymous=True)
     print("Please keep this running in a separate tab.")
-    #rospy.spin()
+    rospy.spin()
 
 if __name__ == '__main__':
     main()
