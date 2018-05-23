@@ -26,6 +26,8 @@
         launch-prefix=""
         required="true">
     <rosparam file="$(arg mocap_config_file)" command="load" />
+   
+   <node pkg="rc_car" type="print_info.py" name="print_info"/>
   </node>
 
 </launch>
