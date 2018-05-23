@@ -29,6 +29,6 @@
    
   </node>
  
- <node pkg="rc_car" type="print_info.py" name="print_info" output="screen"  />
+ <!-- <node pkg="rc_car" type="print_info.py" name="print_info" output="screen"  /> -->
 
 </launch>
