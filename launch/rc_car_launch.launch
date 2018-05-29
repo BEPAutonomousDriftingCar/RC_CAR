@@ -1,7 +1,7 @@
 <launch>
 
  <!-- Turtlesim Node-->
-  <node pkg="donutdevice" type="donutdevice_node" name="donutdevice"/>
+  <node pkg="donutdevice" type="donutdevice_node2" name="donutdevice"/>
     
    <node pkg="rc_car" type="dm.py" name="dm"/> 
   <!-- <node pkg="rc_car" type="dm_init.py" name="dm_init"/> -->
